@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -5,48 +6,70 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #e9f2ff;
-    color: #0b233b;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0b0e14;
+    color: #f1f5f9;
+    min-height: 100vh;
 }
 
+/* CABEÇALHO */
+
 .site-header {
-    text-align: center;
-    padding: 25px;
-    background: #ffffff;
-    border-bottom: 3px solid #0a67c2;
+    padding: 28px 7%;
+    background: #111722;
+    border-bottom: 1px solid #252d3b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .site-header h1 {
-    color: #053b6b;
-    font-size: 28px;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #ffffff;
+}
+
+.site-header h1::first-letter {
+    color: #3b82f6;
 }
 
 .site-header p {
-    margin-top: 8px;
-    color: #42617e;
+    color: #8492a6;
+    font-size: 14px;
+    letter-spacing: 1px;
 }
+
+/* CONTEÚDO PRINCIPAL */
 
 .container {
-    max-width: 1250px;
-    margin: 35px auto;
-    padding: 20px;
     display: flex;
-    align-items: flex-start;
     justify-content: center;
+    align-items: flex-start;
     gap: 35px;
+    max-width: 1450px;
+    margin: 45px auto;
+    padding: 0 30px;
 }
 
+.board-section,
+.clue-group {
+    background: #151b26;
+    border: 1px solid #273244;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* TABULEIRO */
+
 .board-section {
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 45, 90, 0.08);
+    padding: 28px;
 }
 
 .board-section h2 {
-    color: #053b6b;
-    margin-bottom: 20px;
+    font-size: 21px;
+    margin-bottom: 25px;
+    color: #f8fafc;
 }
 
 .board-container {
@@ -56,66 +79,66 @@ body {
 
 .board {
     display: grid;
-    grid-template-columns: repeat(14, 34px);
-    grid-template-rows: repeat(16, 34px);
+    grid-template-columns: repeat(14, 36px);
+    grid-template-rows: repeat(16, 36px);
     gap: 3px;
     width: max-content;
+    background: #0b0e14;
 }
 
 .cell {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
+    background: #e8edf5;
     position: relative;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
-.cell.block {
-    background: #053b6b;
-    border-radius: 3px;
+.cell.blocked {
+    background: #242d3b;
 }
 
-.input-cell {
-    background: #ffffff;
-    border: 2px solid #0a67c2;
-    border-radius: 3px;
-}
-
-.input-cell input {
+.cell input {
     width: 100%;
     height: 100%;
-    border: none;
+    border: 2px solid transparent;
     outline: none;
     background: transparent;
     text-align: center;
+    font-size: 19px;
+    font-weight: 800;
+    color: #111827;
     text-transform: uppercase;
-    font-size: 17px;
-    font-weight: bold;
-    color: #000000;
-    padding: 0;
+    padding-top: 6px;
 }
 
-.input-cell:focus-within {
-    background: #d9ebff;
-    border-color: #003b75;
+.cell input:focus {
+    background: #bfdbfe;
+    border: 2px solid #3b82f6;
+}
+
+.cell input.correct {
+    background: #bbf7d0;
+    border: 2px solid #22c55e;
+}
+
+.cell input.wrong {
+    background: #fecaca;
+    border: 2px solid #ef4444;
 }
 
 .cell-number {
     position: absolute;
-    top: 0;
-    left: 2px;
+    top: 1px;
+    left: 3px;
     font-size: 9px;
-    color: #053b6b;
+    font-weight: 700;
+    color: #334155;
     pointer-events: none;
 }
 
-.input-cell.correct {
-    background: #c8e6c9;
-    border-color: #238636;
-}
-
-.input-cell.wrong {
-    background: #ffd6d6;
-    border-color: #c62828;
-}
+/* BOTÕES */
 
 .controls {
     display: flex;
@@ -123,96 +146,131 @@ body {
     margin-top: 25px;
 }
 
-button {
-    padding: 12px 20px;
+.controls button {
     border: none;
-    border-radius: 6px;
-    background: #0a67c2;
-    color: #ffffff;
-    font-weight: bold;
+    border-radius: 7px;
+    padding: 13px 25px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
     cursor: pointer;
+    transition: 0.25s;
 }
 
-button:hover {
-    background: #053b6b;
+#check-btn {
+    background: #2563eb;
+    color: white;
 }
+
+#check-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+#reset-btn {
+    background: #283345;
+    color: #e2e8f0;
+    border: 1px solid #3a4659;
+}
+
+#reset-btn:hover {
+    background: #37465e;
+    transform: translateY(-2px);
+}
+
+/* RESULTADO */
 
 #score {
-    margin-top: 18px;
-    font-weight: bold;
-    color: #053b6b;
+    margin-top: 22px;
+    color: #60a5fa;
+    font-size: 15px;
+    font-weight: 700;
 }
 
 #message {
     margin-top: 10px;
+    font-weight: 600;
     font-size: 14px;
 }
 
+/* PISTAS */
+
 .clues-section {
-    width: 390px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 22px;
+    width: 410px;
 }
 
 .clue-group {
-    background: #ffffff;
-    padding: 22px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 45, 90, 0.08);
+    padding: 25px;
 }
 
 .clue-group h2 {
-    color: #053b6b;
-    font-size: 18px;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #0a67c2;
-    padding-bottom: 8px;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #60a5fa;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #303b4d;
 }
 
 .clue-group ol {
-    padding-left: 22px;
+    padding-left: 25px;
 }
 
 .clue-group li {
-    margin-bottom: 13px;
-    line-height: 1.5;
-    font-size: 14px;
+    color: #cbd5e1;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    padding-left: 7px;
 }
 
-@media (max-width: 900px) {
+.clue-group li::marker {
+    color: #60a5fa;
+    font-weight: 800;
+}
+
+.clue-group li strong {
+    color: #ffffff;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 1000px) {
     .container {
         flex-direction: column;
         align-items: center;
+    }
+
+    .board-section {
+        max-width: 100%;
     }
 
     .clues-section {
         width: 100%;
         max-width: 550px;
     }
-
-    .board-section {
-        max-width: 100%;
-    }
 }
 
-@media (max-width: 500px) {
-    .board {
-        grid-template-columns: repeat(14, 29px);
-        grid-template-rows: repeat(16, 29px);
-        gap: 2px;
+@media (max-width: 550px) {
+    .site-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
 
-    .cell {
-        width: 29px;
-        height: 29px;
-    }
-
-    .input-cell input {
-        font-size: 14px;
+    .container {
+        padding: 0 12px;
+        margin: 25px auto;
     }
 
     .board-section {
-        padding: 12px;
+        padding: 15px;
+    }
+
+    .controls {
+        flex-wrap: wrap;
     }
 }

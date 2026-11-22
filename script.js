@@ -1,149 +1,142 @@
+
 const palavras = [
     {
-        palavra: "MICROCONTROLADOR",
-        direcao: "vertical",
+        resposta: "MICROCONTROLADOR",
         linha: 0,
         coluna: 1,
+        direcao: "vertical",
         pista: "Chip que reúne processamento, memória e interfaces para controlar dispositivos e sistemas."
     },
     {
-        palavra: "FLASH",
-        direcao: "vertical",
+        resposta: "FLASH",
         linha: 1,
         coluna: 8,
+        direcao: "vertical",
         pista: "Tipo de memória não volátil que permite apagar e regravar informações."
     },
     {
-        palavra: "UC",
-        direcao: "horizontal",
+        resposta: "UC",
         linha: 2,
         coluna: 0,
+        direcao: "horizontal",
         pista: "Unidade que interpreta instruções e coordena o funcionamento dos demais componentes."
     },
     {
-        palavra: "REGISTRADORES",
-        direcao: "horizontal",
+        resposta: "REGISTRADORES",
         linha: 3,
         coluna: 1,
+        direcao: "horizontal",
         pista: "Pequenas áreas de armazenamento interno utilizadas pelo processador durante a execução."
     },
     {
-        palavra: "EEPROM",
-        direcao: "vertical",
+        resposta: "EEPROM",
         linha: 3,
         coluna: 2,
+        direcao: "vertical",
         pista: "Memória que permite alterar informações armazenadas eletricamente e preservá-las após desligamento."
     },
     {
-        palavra: "ROM",
-        direcao: "vertical",
+        resposta: "ROM",
         linha: 3,
         coluna: 7,
-        pista: "Memória que mantém seu conteúdo mesmo sem alimentação elétrica, utilizada tradicionalmente para armazenar instruções permanentes."
+        direcao: "vertical",
+        pista: "Memória não volátil utilizada tradicionalmente para armazenar instruções permanentes."
     },
     {
-        palavra: "DATABUS",
-        direcao: "vertical",
+        resposta: "DATABUS",
         linha: 3,
         coluna: 9,
+        direcao: "vertical",
         pista: "Conjunto de linhas responsáveis pelo transporte de dados e instruções entre componentes."
     },
     {
-        palavra: "CPU",
-        direcao: "horizontal",
+        resposta: "CPU",
         linha: 5,
         coluna: 1,
+        direcao: "horizontal",
         pista: "Componente responsável por interpretar e executar instruções dos programas."
     },
     {
-        palavra: "DMA",
-        direcao: "vertical",
+        resposta: "DMA",
         linha: 8,
         coluna: 3,
-        pista: "Mecanismo que permite transferir dados entre dispositivos e memória sem a participação constante do processador."
+        direcao: "vertical",
+        pista: "Mecanismo que permite transferir dados entre dispositivos e memória sem participação constante do processador."
     },
     {
-        palavra: "RAM",
-        direcao: "horizontal",
+        resposta: "RAM",
         linha: 9,
         coluna: 1,
+        direcao: "horizontal",
         pista: "Memória temporária utilizada durante o funcionamento dos programas, que perde seus dados sem energia."
     },
     {
-        palavra: "ULA",
-        direcao: "horizontal",
+        resposta: "ULA",
         linha: 11,
         coluna: 0,
+        direcao: "horizontal",
         pista: "Parte do processador responsável pelas operações matemáticas e comparações lógicas."
     },
     {
-        palavra: "CACHE",
-        direcao: "horizontal",
+        resposta: "CACHE",
         linha: 12,
         coluna: 0,
+        direcao: "horizontal",
         pista: "Memória rápida que mantém cópias de informações recentemente utilizadas para agilizar acessos."
     }
 ];
 
 const board = document.getElementById("board");
-const acrossClues = document.getElementById("across-clues");
-const downClues = document.getElementById("down-clues");
+const pistasHorizontais = document.getElementById("across-clues");
+const pistasVerticais = document.getElementById("down-clues");
 const score = document.getElementById("score");
 const message = document.getElementById("message");
 
-const linhas = 16;
-const colunas = 14;
-const deslocamentoColuna = 11;
-
 const casas = new Map();
-const posicoes = new Map();
+const numeros = new Map();
 
-function obterCoordenadas(palavra, indice) {
-    let linha = palavra.linha;
-    let coluna = palavra.coluna;
+function obterCoordenadas(palavra) {
+    const coordenadas = [];
 
-    if (palavra.direcao === "horizontal") {
-        coluna += indice;
-    } else {
-        linha += indice;
+    for (let i = 0; i < palavra.resposta.length; i++) {
+        let linha = palavra.linha;
+        let coluna = palavra.coluna;
+
+        if (palavra.direcao === "horizontal") {
+            coluna += i;
+        } else {
+            linha += i;
+        }
+
+        coordenadas.push({ linha, coluna });
     }
 
-    return {
-        linha: linha,
-        coluna: coluna
-    };
+    return coordenadas;
 }
 
-function prepararCasas() {
-    palavras.forEach(palavra => {
-        for (let i = 0; i < palavra.palavra.length; i++) {
-            const coordenada = obterCoordenadas(palavra, i);
+function prepararTabuleiro() {
+    palavras.forEach((palavra, indice) => {
+        const coordenadas = obterCoordenadas(palavra);
+
+        coordenadas.forEach((coordenada, i) => {
             const chave = `${coordenada.linha}-${coordenada.coluna}`;
-            const letra = palavra.palavra[i];
 
             if (!casas.has(chave)) {
-                casas.set(chave, letra);
+                casas.set(chave, {
+                    letra: palavra.resposta[i],
+                    palavras: []
+                });
             }
 
-            if (!posicoes.has(chave)) {
-                posicoes.set(chave, []);
-            }
-
-            posicoes.get(chave).push(palavra);
-        }
-    });
-}
-
-function numerarPalavras() {
-    const inicios = [];
-
-    palavras.forEach(palavra => {
-        inicios.push({
-            linha: palavra.linha,
-            coluna: palavra.coluna,
-            palavra: palavra
+            casas.get(chave).palavras.push(indice);
         });
     });
+
+    const inicios = palavras.map((palavra, indice) => ({
+        linha: palavra.linha,
+        coluna: palavra.coluna,
+        indice: indice
+    }));
 
     inicios.sort((a, b) => {
         if (a.linha !== b.linha) {
@@ -154,69 +147,70 @@ function numerarPalavras() {
     });
 
     inicios.forEach((inicio, indice) => {
-        inicio.palavra.numero = indice + 1;
+        const chave = `${inicio.linha}-${inicio.coluna}`;
+        numeros.set(chave, indice + 1);
+        palavras[inicio.indice].numero = indice + 1;
     });
 }
 
 function montarTabuleiro() {
-    prepararCasas();
-    numerarPalavras();
+    board.innerHTML = "";
 
-    for (let linha = 0; linha < linhas; linha++) {
-        for (let coluna = 0; coluna < colunas; coluna++) {
-            const colunaOriginal = coluna + deslocamentoColuna;
-            const chave = `${linha}-${colunaOriginal}`;
+    for (let linha = 0; linha < 16; linha++) {
+        for (let coluna = 0; coluna < 14; coluna++) {
+            const chave = `${linha}-${coluna}`;
+            const celula = document.createElement("div");
 
-            const casa = document.createElement("div");
-            casa.classList.add("cell");
+            celula.classList.add("cell");
 
             if (casas.has(chave)) {
-                casa.classList.add("input-cell");
-
-                const inicio = palavras.find(palavra =>
-                    palavra.linha === linha &&
-                    palavra.coluna === colunaOriginal
-                );
-
-                if (inicio) {
-                    const numero = document.createElement("span");
-                    numero.classList.add("cell-number");
-                    numero.textContent = inicio.numero;
-                    casa.appendChild(numero);
-                }
-
                 const input = document.createElement("input");
+
                 input.type = "text";
                 input.maxLength = 1;
                 input.autocomplete = "off";
                 input.dataset.row = linha;
-                input.dataset.col = colunaOriginal;
-                input.setAttribute("aria-label", `Linha ${linha + 1}, coluna ${colunaOriginal + 1}`);
+                input.dataset.col = coluna;
 
                 input.addEventListener("input", tratarEntrada);
 
-                casa.appendChild(input);
+                celula.appendChild(input);
+
+                if (numeros.has(chave)) {
+                    const numero = document.createElement("span");
+
+                    numero.classList.add("cell-number");
+                    numero.textContent = numeros.get(chave);
+
+                    celula.appendChild(numero);
+                }
             } else {
-                casa.classList.add("block");
+                celula.classList.add("blocked");
             }
 
-            board.appendChild(casa);
+            board.appendChild(celula);
         }
     }
-
-    montarPistas();
 }
 
 function montarPistas() {
+    pistasHorizontais.innerHTML = "";
+    pistasVerticais.innerHTML = "";
+
     palavras.forEach(palavra => {
         const item = document.createElement("li");
 
-        item.textContent = `${palavra.numero}. ${palavra.pista}`;
+        item.textContent = palavra.pista;
+
+        const numero = document.createElement("strong");
+        numero.textContent = `${palavra.numero}. `;
+
+        item.prepend(numero);
 
         if (palavra.direcao === "horizontal") {
-            acrossClues.appendChild(item);
+            pistasHorizontais.appendChild(item);
         } else {
-            downClues.appendChild(item);
+            pistasVerticais.appendChild(item);
         }
     });
 }
@@ -229,18 +223,16 @@ function tratarEntrada(evento) {
         .replace(/[^A-Z]/g, "")
         .slice(0, 1);
 
-    input.parentElement.classList.remove("correct", "wrong");
-
     if (input.value !== "") {
-        const atual = Number(input.dataset.row);
+        const linha = Number(input.dataset.row);
         const coluna = Number(input.dataset.col);
 
-        const proximo = document.querySelector(
-            `input[data-row="${atual}"][data-col="${coluna + 1}"]`
+        const proximaCasa = document.querySelector(
+            `input[data-row="${linha}"][data-col="${coluna + 1}"]`
         );
 
-        if (proximo) {
-            proximo.focus();
+        if (proximaCasa) {
+            proximaCasa.focus();
         }
     }
 }
@@ -248,69 +240,86 @@ function tratarEntrada(evento) {
 function conferir() {
     let acertos = 0;
 
-    document.querySelectorAll(".input-cell").forEach(casa => {
-        casa.classList.remove("correct", "wrong");
-    });
+    const resultados = new Map();
 
-    palavras.forEach(palavra => {
-        let resposta = "";
+    palavras.forEach((palavra, indice) => {
+        const coordenadas = obterCoordenadas(palavra);
+        let respostaCorreta = true;
 
-        for (let i = 0; i < palavra.palavra.length; i++) {
-            const coordenada = obterCoordenadas(palavra, i);
-
+        coordenadas.forEach((coordenada, i) => {
             const input = document.querySelector(
                 `input[data-row="${coordenada.linha}"][data-col="${coordenada.coluna}"]`
             );
 
-            resposta += input ? input.value : "";
-        }
+            if (!input || input.value !== palavra.resposta[i]) {
+                respostaCorreta = false;
+            }
+        });
 
-        const correta = resposta === palavra.palavra;
+        resultados.set(indice, respostaCorreta);
 
-        if (correta) {
+        if (respostaCorreta) {
             acertos++;
         }
+    });
 
-        for (let i = 0; i < palavra.palavra.length; i++) {
-            const coordenada = obterCoordenadas(palavra, i);
+    const resultadoCasas = new Map();
 
-            const input = document.querySelector(
-                `input[data-row="${coordenada.linha}"][data-col="${coordenada.coluna}"]`
-            );
+    palavras.forEach((palavra, indice) => {
+        const coordenadas = obterCoordenadas(palavra);
 
-            if (input) {
-                const casa = input.parentElement;
+        coordenadas.forEach(coordenada => {
+            const chave = `${coordenada.linha}-${coordenada.coluna}`;
 
-                if (!correta) {
-                    casa.classList.remove("correct");
-                    casa.classList.add("wrong");
-                } else if (!casa.classList.contains("wrong")) {
-                    casa.classList.add("correct");
-                }
+            if (!resultadoCasas.has(chave)) {
+                resultadoCasas.set(chave, true);
             }
+
+            if (!resultados.get(indice)) {
+                resultadoCasas.set(chave, false);
+            }
+        });
+    });
+
+    resultadoCasas.forEach((correta, chave) => {
+        const [linha, coluna] = chave.split("-");
+
+        const input = document.querySelector(
+            `input[data-row="${linha}"][data-col="${coluna}"]`
+        );
+
+        if (input) {
+            input.classList.remove("correct", "wrong");
+            input.classList.add(correta ? "correct" : "wrong");
         }
     });
 
-    score.textContent = `${acertos} de ${palavras.length} palavras`;
+    score.textContent = `${acertos} de 12 palavras`;
 
-    if (acertos === palavras.length) {
+    if (acertos === 12) {
         message.textContent = "Parabéns! Você completou a cruzadinha!";
+        message.style.color = "#16803c";
     } else {
-        message.textContent = "Confira as palavras destacadas e tente novamente.";
+        message.textContent = "Continue tentando! Confira as casas em vermelho.";
+        message.style.color = "#c0392b";
     }
 }
 
 function reiniciar() {
-    document.querySelectorAll("#board input").forEach(input => {
+    const inputs = document.querySelectorAll(".cell input");
+
+    inputs.forEach(input => {
         input.value = "";
-        input.parentElement.classList.remove("correct", "wrong");
+        input.classList.remove("correct", "wrong");
     });
 
-    score.textContent = `0 de ${palavras.length} palavras`;
+    score.textContent = "0 de 12 palavras";
     message.textContent = "";
 }
 
 document.getElementById("check-btn").addEventListener("click", conferir);
 document.getElementById("reset-btn").addEventListener("click", reiniciar);
 
+prepararTabuleiro();
 montarTabuleiro();
+montarPistas();
