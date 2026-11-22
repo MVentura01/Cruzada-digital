@@ -1,36 +1,95 @@
-/* Cruzada Digital - estilo base (scaffold)
-   Commit 1: arquivo inicial, regras visuais completas virão no Commit 4.
+/* Cruzada Digital - identidade visual completa (Commit 4)
+   Regras visuais: fundo azul/ branco, tabuleiro à esquerda, pistas à direita,
+   casas brancas com borda azul, casas bloqueadas azul escuro, letras em maiúsculas pretas,
+   botões azuis com texto branco, indicação de correto/incorreto.
 */
 
 :root{
   --blue:#0a67c2;
   --dark-blue:#053b6b;
+  --bg-gradient: linear-gradient(180deg, #e9f2ff 0%, #ffffff 40%);
   --white:#ffffff;
-  --text:#000000;
+  --text:#0b233b;
+  --cell-size:38px; /* base, será reduzido em telas menores */
+  --gap:6px;
   --correct:#c8e6c9;
-  --wrong:#ffcdd2;
+  --wrong:#ffd6d6;
 }
 
+*{ box-sizing:border-box; }
 html,body{
   height:100%;
   margin:0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(180deg,var(--blue)10%,var(--white)90%);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg-gradient);
   color:var(--text);
+  -webkit-font-smoothing:antialiased;
 }
 
-.site-header{ text-align:center; padding:18px 12px; }
-.site-header h1{ margin:0; font-size:1.6rem; letter-spacing:1px; }
-.site-header h2{ margin:4px 0 0; font-size:1rem; color:rgba(0,0,0,0.7); }
+.site-header{
+  text-align:center;
+  padding:18px 12px 8px;
+}
+.site-header h1{
+  margin:0; font-size:1.6rem; letter-spacing:1px; color:var(--dark-blue);
+}
+.site-header h2{ margin:6px 0 0; font-size:0.95rem; color:rgba(11,35,59,0.7); }
 
-.app-main{ display:flex; gap:20px; padding:18px; align-items:flex-start; }
+.app-main{
+  display:flex; gap:20px; padding:18px; align-items:flex-start; max-width:1200px; margin:0 auto;
+}
 .board-area{ flex:1 1 60%; }
 .clues-area{ width:320px; }
 
-.controls{ display:flex; justify-content:space-between; align-items:center; padding:12px 18px; }
-.btn{ background:var(--blue); color:var(--white); border:none; padding:10px 14px; border-radius:6px; cursor:pointer; }
+/* Board layout: rows of cells */
+#board{ display:flex; flex-direction:column; gap:4px; background:transparent; }
+.board-row{ display:flex; gap:4px; }
+.cell{ width:var(--cell-size); height:var(--cell-size); position:relative; display:flex; align-items:center; justify-content:center; }
 
-/* placeholder for the board grid; full styles applied in Commit 4 */
-#board{ min-height:360px; background:transparent; }
+/* Blocked cell */
+.cell.block{ background:var(--dark-blue); border-radius:4px; }
 
-.clues h3{ margin:6px 0; }
+/* Input cell */
+.input-cell{ background:var(--white); border:2px solid var(--blue); border-radius:4px; }
+.input-cell input{ width:100%; height:100%; border:0; text-align:center; font-weight:700; font-size:1rem; text-transform:uppercase; color:#000; background:transparent; outline:none; }
+.input-cell input::placeholder{ color:transparent; }
+.input-cell:focus-within{ box-shadow:0 0 0 3px rgba(10,103,194,0.12); }
+
+/* Cell number in the corner */
+.cell-number{ position:absolute; top:2px; left:4px; font-size:0.6rem; color:rgba(11,35,59,0.7); }
+
+/* Pistas styling */
+.clues-area{ background:rgba(255,255,255,0.9); padding:12px; border-radius:8px; box-shadow:0 4px 16px rgba(12,35,80,0.06); }
+.clues{ margin-bottom:12px; }
+.clues h3{ margin:4px 0 8px; color:var(--dark-blue); }
+.clues ol{ padding-left:18px; margin:0; max-height:360px; overflow:auto; }
+.clues li{ margin-bottom:10px; font-size:0.95rem; }
+
+/* Controls */
+.controls{ display:flex; justify-content:space-between; align-items:center; padding:12px 18px; max-width:1200px; margin:12px auto 24px; }
+.buttons{ display:flex; gap:10px; }
+.btn{ background:var(--blue); color:var(--white); border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:600; }
+.btn:active{ transform:translateY(1px); }
+
+.status{ color:var(--dark-blue); font-weight:600; }
+
+/* Correct / wrong states (applied to .input-cell) */
+.input-cell.correct{ background:var(--correct); border-color:darkgreen; }
+.input-cell.wrong{ background:var(--wrong); border-color:darkred; }
+.input-cell.correct input{ background:transparent; }
+
+/* Responsive adjustments */
+@media (max-width:1000px){
+  .app-main{ flex-direction:column; padding:12px; }
+  .clues-area{ width:100%; order:2; }
+  .board-area{ order:1; }
+}
+
+@media (max-width:600px){
+  :root{ --cell-size:30px; }
+  .clues ol{ max-height:240px; }
+  .site-header h1{ font-size:1.2rem; }
+}
+
+/* Small tweaks to make grid look tighter */
+.board-row .cell{ box-shadow:inset 0 -1px 0 rgba(0,0,0,0.02); }
