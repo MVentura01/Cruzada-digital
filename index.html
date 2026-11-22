@@ -1,11 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUZADA DIGITAL — Arquitetura Computacional</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+  <meta name="description" content="Cruzada Digital — jogo de palavras cruzadas para disciplina de Arquitetura Computacional">
 </head>
 <body>
-    
+  <header class="site-header">
+    <h1>CRUZADA DIGITAL</h1>
+    <h2>Arquitetura Computacional</h2>
+  </header>
+
+  <main class="app-main">
+    <section class="board-area" aria-label="Tabuleiro">
+      <!-- O tabuleiro será gerado aqui. Cada célula será um input ou uma célula bloqueada. -->
+      <div id="board" class="board" role="grid"></div>
+    </section>
+
+    <aside class="clues-area" aria-label="Pistas">
+      <div class="clues">
+        <h3>Horizontais</h3>
+        <ol id="across-clues"></ol>
+      </div>
+      <div class="clues">
+        <h3>Verticais</h3>
+        <ol id="down-clues"></ol>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="controls">
+    <div class="buttons">
+      <button id="check-btn" class="btn">CONFERIR</button>
+      <button id="reset-btn" class="btn">REINICIAR</button>
+    </div>
+    <div class="status">
+      <span id="score">0 de 12 palavras</span>
+    </div>
+  </footer>
+
 </body>
 </html>
