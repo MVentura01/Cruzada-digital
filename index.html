@@ -1,249 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRUZADA DIGITAL — Arquitetura Computacional</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
-  <meta name="description" content="Cruzada Digital — jogo de palavras cruzadas para disciplina de Arquitetura Computacional">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cruzada Digital - Arquitetura Computacional</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <h1>CRUZADA DIGITAL</h1>
-    <h2>Arquitetura Computacional</h2>
-  </header>
 
-  <main class="app-main">
-    <section class="board-area" aria-label="Tabuleiro">
-      <!-- Tabuleiro estático (HTML) conforme GRID_PLAN.md -->
-      <div id="board" class="board" role="grid">
-        <!-- Renderização em linhas (linhas 0..15, colunas 0..24) -->
-        <!-- Cada célula usada contém um input tipo texto com maxlength=1 e data-solution com a letra esperada -->
-        <!-- Células bloqueadas têm classe "block" -->
+    <header class="site-header">
+        <h1>CRUZADA DIGITAL</h1>
+        <p>Arquitetura Computacional</p>
+    </header>
 
-        <!-- Row 0 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="0" data-col="12"><span class="cell-number">8</span><input type="text" maxlength="1" data-row="0" data-col="12" data-solution="M" aria-label="Linha 1 Coluna 13"></div>
-          <!-- cols 13..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 1 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="1" data-col="12"><input type="text" maxlength="1" data-row="1" data-col="12" data-solution="I" aria-label="Linha 2 Coluna 13"></div>
-          <!-- cols 13..18 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="1" data-col="19"><span class="cell-number">11</span><input type="text" maxlength="1" data-row="1" data-col="19" data-solution="F" aria-label="Linha 2 Coluna 20"></div>
-          <!-- cols 20..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 2 -->
-        <div class="board-row">
-          <!-- cols 0..10 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="2" data-col="11"><span class="cell-number">3</span><input type="text" maxlength="1" data-row="2" data-col="11" data-solution="U" aria-label="Linha 3 Coluna 12"></div>
-          <div class="cell input-cell" data-row="2" data-col="12"><input type="text" maxlength="1" data-row="2" data-col="12" data-solution="C" aria-label="Linha 3 Coluna 13"></div>
-          <!-- cols 13..18 blocked except col19 -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="2" data-col="19"><input type="text" maxlength="1" data-row="2" data-col="19" data-solution="L" aria-label="Linha 3 Coluna 20"></div>
-          <!-- cols 20..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 3 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="3" data-col="12"><span class="cell-number">4</span><input type="text" maxlength="1" data-row="3" data-col="12" data-solution="R" aria-label="Linha 4 Coluna 13"></div>
-          <div class="cell input-cell" data-row="3" data-col="13"><span class="cell-number">10</span><input type="text" maxlength="1" data-row="3" data-col="13" data-solution="E" aria-label="Linha 4 Coluna 14"></div>
-          <div class="cell input-cell" data-row="3" data-col="14"><input type="text" maxlength="1" data-row="3" data-col="14" data-solution="G" aria-label="Linha 4 Coluna 15"></div>
-          <div class="cell input-cell" data-row="3" data-col="15"><input type="text" maxlength="1" data-row="3" data-col="15" data-solution="I" aria-label="Linha 4 Coluna 16"></div>
-          <div class="cell input-cell" data-row="3" data-col="16"><input type="text" maxlength="1" data-row="3" data-col="16" data-solution="S" aria-label="Linha 4 Coluna 17"></div>
-          <div class="cell input-cell" data-row="3" data-col="17"><input type="text" maxlength="1" data-row="3" data-col="17" data-solution="T" aria-label="Linha 4 Coluna 18"></div>
-          <div class="cell input-cell" data-row="3" data-col="18"><span class="cell-number">9</span><input type="text" maxlength="1" data-row="3" data-col="18" data-solution="R" aria-label="Linha 4 Coluna 19"></div>
-          <div class="cell input-cell" data-row="3" data-col="19"><input type="text" maxlength="1" data-row="3" data-col="19" data-solution="A" aria-label="Linha 4 Coluna 20"></div>
-          <div class="cell input-cell" data-row="3" data-col="20"><span class="cell-number">12</span><input type="text" maxlength="1" data-row="3" data-col="20" data-solution="D" aria-label="Linha 4 Coluna 21"></div>
-          <div class="cell input-cell" data-row="3" data-col="21"><input type="text" maxlength="1" data-row="3" data-col="21" data-solution="O" aria-label="Linha 4 Coluna 22"></div>
-          <div class="cell input-cell" data-row="3" data-col="22"><input type="text" maxlength="1" data-row="3" data-col="22" data-solution="R" aria-label="Linha 4 Coluna 23"></div>
-          <div class="cell input-cell" data-row="3" data-col="23"><input type="text" maxlength="1" data-row="3" data-col="23" data-solution="E" aria-label="Linha 4 Coluna 24"></div>
-          <div class="cell input-cell" data-row="3" data-col="24"><input type="text" maxlength="1" data-row="3" data-col="24" data-solution="S" aria-label="Linha 4 Coluna 25"></div>
-        </div>
-        <!-- Row 4 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="4" data-col="12"><input type="text" maxlength="1" data-row="4" data-col="12" data-solution="O" aria-label="Linha 5 Coluna 13"></div>
-          <div class="cell input-cell" data-row="4" data-col="13"><input type="text" maxlength="1" data-row="4" data-col="13" data-solution="E" aria-label="Linha 5 Coluna 14"></div>
-          <!-- cols 14..17 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="4" data-col="18"><input type="text" maxlength="1" data-row="4" data-col="18" data-solution="O" aria-label="Linha 5 Coluna 19"></div>
-          <div class="cell input-cell" data-row="4" data-col="19"><input type="text" maxlength="1" data-row="4" data-col="19" data-solution="S" aria-label="Linha 5 Coluna 20"></div>
-          <div class="cell input-cell" data-row="4" data-col="20"><input type="text" maxlength="1" data-row="4" data-col="20" data-solution="A" aria-label="Linha 5 Coluna 21"></div>
-          <!-- cols 21..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 5 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="5" data-col="12"><span class="cell-number">1</span><input type="text" maxlength="1" data-row="5" data-col="12" data-solution="C" aria-label="Linha 6 Coluna 13"></div>
-          <div class="cell input-cell" data-row="5" data-col="13"><input type="text" maxlength="1" data-row="5" data-col="13" data-solution="P" aria-label="Linha 6 Coluna 14"></div>
-          <div class="cell input-cell" data-row="5" data-col="14"><input type="text" maxlength="1" data-row="5" data-col="14" data-solution="U" aria-label="Linha 6 Coluna 15"></div>
-          <!-- cols 15..17 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="5" data-col="18"><input type="text" maxlength="1" data-row="5" data-col="18" data-solution="M" aria-label="Linha 6 Coluna 19"></div>
-          <div class="cell input-cell" data-row="5" data-col="19"><input type="text" maxlength="1" data-row="5" data-col="19" data-solution="H" aria-label="Linha 6 Coluna 20"></div>
-          <div class="cell input-cell" data-row="5" data-col="20"><input type="text" maxlength="1" data-row="5" data-col="20" data-solution="T" aria-label="Linha 6 Coluna 21"></div>
-          <!-- cols 21..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 6 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="6" data-col="12"><input type="text" maxlength="1" data-row="6" data-col="12" data-solution="O" aria-label="Linha 7 Coluna 13"></div>
-          <div class="cell input-cell" data-row="6" data-col="13"><input type="text" maxlength="1" data-row="6" data-col="13" data-solution="R" aria-label="Linha 7 Coluna 14"></div>
-          <!-- cols 14..19 blocked except col20 -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="6" data-col="20"><input type="text" maxlength="1" data-row="6" data-col="20" data-solution="A" aria-label="Linha 7 Coluna 21"></div>
-          <!-- cols 21..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 7 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="7" data-col="12"><input type="text" maxlength="1" data-row="7" data-col="12" data-solution="N" aria-label="Linha 8 Coluna 13"></div>
-          <div class="cell input-cell" data-row="7" data-col="13"><input type="text" maxlength="1" data-row="7" data-col="13" data-solution="O" aria-label="Linha 8 Coluna 14"></div>
-          <!-- cols 14..19 blocked except col20 -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="7" data-col="20"><input type="text" maxlength="1" data-row="7" data-col="20" data-solution="B" aria-label="Linha 8 Coluna 21"></div>
-          <!-- cols 21..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 8 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="8" data-col="12"><input type="text" maxlength="1" data-row="8" data-col="12" data-solution="T" aria-label="Linha 9 Coluna 13"></div>
-          <div class="cell input-cell" data-row="8" data-col="13"><input type="text" maxlength="1" data-row="8" data-col="13" data-solution="M" aria-label="Linha 9 Coluna 14"></div>
-          <div class="cell input-cell" data-row="8" data-col="14"><span class="cell-number">7</span><input type="text" maxlength="1" data-row="8" data-col="14" data-solution="D" aria-label="Linha 9 Coluna 15"></div>
-          <!-- cols 15..19 blocked except col20 -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="8" data-col="20"><input type="text" maxlength="1" data-row="8" data-col="20" data-solution="U" aria-label="Linha 9 Coluna 21"></div>
-          <!-- cols 21..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 9 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="9" data-col="12"><span class="cell-number">5</span><input type="text" maxlength="1" data-row="9" data-col="12" data-solution="R" aria-label="Linha 10 Coluna 13"></div>
-          <div class="cell input-cell" data-row="9" data-col="13"><input type="text" maxlength="1" data-row="9" data-col="13" data-solution="A" aria-label="Linha 10 Coluna 14"></div>
-          <div class="cell input-cell" data-row="9" data-col="14"><input type="text" maxlength="1" data-row="9" data-col="14" data-solution="M" aria-label="Linha 10 Coluna 15"></div>
-          <!-- cols 15..19 blocked except col20 -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="9" data-col="20"><input type="text" maxlength="1" data-row="9" data-col="20" data-solution="S" aria-label="Linha 10 Coluna 21"></div>
-          <!-- cols 21..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 10 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="10" data-col="12"><input type="text" maxlength="1" data-row="10" data-col="12" data-solution="O" aria-label="Linha 11 Coluna 13"></div>
-          <div class="cell block"></div>
-          <div class="cell input-cell" data-row="10" data-col="14"><input type="text" maxlength="1" data-row="10" data-col="14" data-solution="A" aria-label="Linha 11 Coluna 15"></div>
-          <!-- cols 15..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 11 -->
-        <div class="board-row">
-          <!-- cols 0..10 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="11" data-col="11"><span class="cell-number">2</span><input type="text" maxlength="1" data-row="11" data-col="11" data-solution="U" aria-label="Linha 12 Coluna 12"></div>
-          <div class="cell input-cell" data-row="11" data-col="12"><input type="text" maxlength="1" data-row="11" data-col="12" data-solution="L" aria-label="Linha 12 Coluna 13"></div>
-          <div class="cell input-cell" data-row="11" data-col="13"><input type="text" maxlength="1" data-row="11" data-col="13" data-solution="A" aria-label="Linha 12 Coluna 14"></div>
-          <!-- cols 14..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 12 -->
-        <div class="board-row">
-          <!-- cols 0..10 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="12" data-col="11"><span class="cell-number">6</span><input type="text" maxlength="1" data-row="12" data-col="11" data-solution="C" aria-label="Linha 13 Coluna 12"></div>
-          <div class="cell input-cell" data-row="12" data-col="12"><input type="text" maxlength="1" data-row="12" data-col="12" data-solution="A" aria-label="Linha 13 Coluna 13"></div>
-          <div class="cell input-cell" data-row="12" data-col="13"><input type="text" maxlength="1" data-row="12" data-col="13" data-solution="C" aria-label="Linha 13 Coluna 14"></div>
-          <div class="cell input-cell" data-row="12" data-col="14"><input type="text" maxlength="1" data-row="12" data-col="14" data-solution="H" aria-label="Linha 13 Coluna 15"></div>
-          <div class="cell input-cell" data-row="12" data-col="15"><input type="text" maxlength="1" data-row="12" data-col="15" data-solution="E" aria-label="Linha 13 Coluna 16"></div>
-          <!-- cols 16..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 13 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="13" data-col="12"><input type="text" maxlength="1" data-row="13" data-col="12" data-solution="D" aria-label="Linha 14 Coluna 13"></div>
-          <!-- cols 13..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 14 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="14" data-col="12"><input type="text" maxlength="1" data-row="14" data-col="12" data-solution="O" aria-label="Linha 15 Coluna 13"></div>
-          <!-- cols 13..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-        <!-- Row 15 -->
-        <div class="board-row">
-          <!-- cols 0..11 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-          <div class="cell input-cell" data-row="15" data-col="12"><input type="text" maxlength="1" data-row="15" data-col="12" data-solution="R" aria-label="Linha 16 Coluna 13"></div>
-          <!-- cols 13..24 blocked -->
-          <div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div><div class="cell block"></div>
-        </div>
-      </div>
-    </section>
+    <main class="container">
 
-    <aside class="clues-area" aria-label="Pistas">
-      <div class="clues">
-        <h3>Horizontais</h3>
-        <ol id="across-clues">
-          <li><strong>1. CPU</strong> — Componente responsável por interpretar e executar instruções dos programas.</li>
-          <li><strong>2. ULA</strong> — Parte do processador responsável pelas operações matemáticas e comparações lógicas.</li>
-          <li><strong>3. UC</strong> — Unidade que interpreta instruções e coordena o funcionamento dos demais componentes.</li>
-          <li><strong>4. REGISTRADORES</strong> — Pequenas áreas de armazenamento interno utilizadas pelo processador durante a execução.</li>
-          <li><strong>5. RAM</strong> — Memória temporária utilizada durante o funcionamento dos programas, que perde seus dados sem energia.</li>
-          <li><strong>6. CACHE</strong> — Memória rápida que mantém cópias de informações recentemente utilizadas para agilizar acessos.</li>
-        </ol>
-      </div>
-      <div class="clues">
-        <h3>Verticais</h3>
-        <ol id="down-clues">
-          <li><strong>7. DMA</strong> — Mecanismo que permite transferir dados entre dispositivos e memória sem a participação constante do processador.</li>
-          <li><strong>8. MICROCONTROLADOR</strong> — Chip que reúne processamento, memória e interfaces para controlar dispositivos e sistemas.</li>
-          <li><strong>9. ROM</strong> — Memória que mantém seu conteúdo mesmo sem alimentação elétrica, utilizada tradicionalmente para armazenar instruções permanentes.</li>
-          <li><strong>10. EEPROM</strong> — Memória que permite alterar informações armazenadas eletricamente e preservá-las após desligamento.</li>
-          <li><strong>11. FLASH</strong> — Tipo de memória não volátil que permite apagar e regravar informações.</li>
-          <li><strong>12. DATABUS</strong> — Conjunto de linhas responsáveis pelo transporte de dados e instruções entre componentes.</li>
-        </ol>
-      </div>
-    </aside>
-  </main>
+        <section class="board-section">
+            <h2>Complete a cruzadinha</h2>
 
-  <footer class="controls">
-    <div class="buttons">
-      <button id="check-btn" class="btn">CONFERIR</button>
-      <button id="reset-btn" class="btn">REINICIAR</button>
-    </div>
-    <div class="status">
-      <span id="score">0 de 12 palavras</span>
-    </div>
-  </footer>
+            <div class="board-container">
+                <div id="board" class="board" aria-label="Tabuleiro da cruzadinha"></div>
+            </div>
+
+            <div class="controls">
+                <button id="check-btn">CONFERIR</button>
+                <button id="reset-btn">REINICIAR</button>
+            </div>
+
+            <p id="score">0 de 12 palavras</p>
+            <p id="message" aria-live="polite"></p>
+        </section>
+
+        <aside class="clues-section">
+
+            <div class="clue-group">
+                <h2>HORIZONTAIS</h2>
+                <ol id="across-clues"></ol>
+            </div>
+
+            <div class="clue-group">
+                <h2>VERTICAIS</h2>
+                <ol id="down-clues"></ol>
+            </div>
+
+        </aside>
+
+    </main>
 
 </body>
 </html>
